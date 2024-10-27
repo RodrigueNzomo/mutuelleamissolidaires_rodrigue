@@ -11,14 +11,17 @@ const PretSchema = new mongoose.Schema(
     montant: {
       type: Number,
       required: true,
+      min: [0, "Le montant doit être positif"],
     },
     interet: {
       type: Number,
       required: true,
+      min: [0, "L'intérêt doit être positif"],
     },
     duree: {
       type: Number,
       required: true,
+      min: [1, "La durée doit être d'au moins 1 mois"],
     },
     dateDebut: {
       type: Date,

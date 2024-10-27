@@ -11,10 +11,12 @@ const AideSchema = new mongoose.Schema(
     typeAide: {
       type: String,
       required: true,
+      enum: ["urgence", "soutien", "autre"], // Types d'aides possibles
     },
     montant: {
       type: Number,
       required: true,
+      min: [0, "Le montant doit être supérieur à 0"], // Validation du montant
     },
     date: {
       type: Date,
@@ -22,6 +24,7 @@ const AideSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      trim: true,
     },
   },
   { timestamps: true }

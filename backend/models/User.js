@@ -6,15 +6,18 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
     unique: true,
+    match: [/.+@.+\..+/, "Veuillez fournir un email valide"], // Validation du format email
   },
   password: {
     type: String,
     required: true,
+    minlength: [6, "Le mot de passe doit contenir au moins 6 caractères"], // Sécurité renforcée
   },
 });
 
@@ -26,10 +29,11 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 // Pré-enregistrement pour hasher le mot de passe
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
-    next();
+    return next();
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 module.exports = mongoose.model("User", userSchema);

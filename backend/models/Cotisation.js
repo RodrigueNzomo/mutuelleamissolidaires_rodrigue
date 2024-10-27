@@ -11,6 +11,7 @@ const CotisationSchema = new mongoose.Schema(
     montant: {
       type: Number,
       required: true,
+      min: [0, "Le montant doit être positif"], // Validation pour éviter les montants négatifs
     },
     date: {
       type: Date,
