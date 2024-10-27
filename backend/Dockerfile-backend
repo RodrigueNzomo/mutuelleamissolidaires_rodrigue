@@ -1,0 +1,27 @@
+# Utiliser une image Node.js comme base
+FROM node:18-alpine
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Copier les fichiers de configuration et les dépendances
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm install
+
+# Copier le reste des fichiers de l'application
+COPY . .
+
+# Exposer le port (à ajuster si nécessaire)
+EXPOSE 5000
+
+# Démarrer l'application
+CMD ["node", "server.js"]
+
+
+# Dockerfile pour le backend :
+
+# Utilise une image Node.js comme base pour installer et exécuter l'application.
+# Expose le port 5000 pour permettre l'accès au serveur backend.
+# Utilise npm install pour installer les dépendances et node server.js pour démarrer l'application.
